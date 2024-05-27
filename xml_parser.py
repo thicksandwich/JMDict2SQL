@@ -51,8 +51,8 @@ def parse_xml():
 
                 if(k_ele.find('ke_pri') is not None):
                     # priority of the kanji entry
-                    ke_pri = k_ele.find('ke_pri').text
-                    ke_pri_data.append((k_ele_id, ke_pri))
+                    ke_pri_list = [ke_pri.text for ke_pri in k_ele.findall('ke_pri')]
+                    ke_pri_data.append((k_ele_id, ', '.join(ke_pri_list)))
 
 
         # ---------reading elements-----------
@@ -87,8 +87,8 @@ def parse_xml():
 
             if(r_ele.find('re_pri') is not None):
                 # priority of the reading entry
-                re_pri = r_ele.find('re_pri').text
-                re_pri_data.append((r_ele_id, re_pri))
+                re_pri_list = [re_pri.text for re_pri in r_ele.findall('re_pri')]
+                re_pri_data.append((r_ele_id, ', '.join(re_pri_list)))
 
         # ---------sense elements-----------
         for sense in entry.findall('sense'):
@@ -161,7 +161,7 @@ def parse_xml():
                 # definition type (e.g. 'lit' (literal), 'fig' (figurative), etc)
                 g_type = gloss.get('g_type')
 
-                gloss_data.append((sense_id, definition, lang, g_type))
+                gloss_data.append((sense_id, definition, lang, g_type))                
 
                 gloss_id += 1
 
